@@ -31,6 +31,11 @@ Figure 3: Mean and standard deviation of class distances for 100 different sets 
 </p>
 
 
+
+## Normal Accuracy of TrojAI Models
+
+Figure 4 shows the normal accuracy of false positive models reported by top-performers' scanner in Section VI-A before and after applying MOTH. The x-axis denotes the model IDs and the y-axis denotes the accuracy. Bars in the light colors denote the accuracy of models before applying MOTH and the dark color after. The accuracy degradation is 0.13% on average.
+
 <p align="center">
 <img title="false_positive" src="pics/false_positive.png" height="220">
 </p>
@@ -38,6 +43,9 @@ Figure 3: Mean and standard deviation of class distances for 100 different sets 
 <p align="center">
 Figure 4: Normal accuracy of false positive models
 </p>
+
+
+Figure 5 shows the normal accuracy of poisoned models before and after applying each backdoor-erasing technique. Bars in the light colors denote the accuracy of poisoned models before erasing/hardening and the dark color after. We can observe that the accuracy degradation is minimal (<0.5% for most cases). The average accuracy degradation is less than 0.2% for all the techniques.
 
 <p align="center">
 <img title="poison_accuracy" src="pics/poison_accuracy.png" height="160">
