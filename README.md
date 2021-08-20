@@ -56,6 +56,11 @@ Figure 5: Normal accuracy of poisoned models before/after repair
 </p>
 
 
+
+## Evaluation on TrojAI Models
+
+The results are shown in the following two tables. Overall, Universal can improve the class distance to some extent with an average of 154.70% improvement over the original models, inferior to MOTH with 232.39%. Pairwise has a similar performance (239.98%) on hardening class distance as MOTH. But it suffers from low efficiency, 10.81 times slower than MOTH.
+
 <p align="center">
 <img title="poison_accuracy" src="pics/enlarge_trojai.png" height="800">
 </p>
