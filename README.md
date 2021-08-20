@@ -10,7 +10,7 @@ Normal accuracy of false positive models
 
 
 <p align="center">
-<img title="poison_accuracy" src="pics/poison_accuracy.png" height="180">
+<img title="poison_accuracy" src="pics/poison_accuracy.png" height="160">
 </p>
 
 <p align="center">
@@ -39,4 +39,13 @@ Mean and standard deviation of class distances for 100 different sets of 100 ran
 
 <p align="center">
 Mean and standard deviation of class distances for 100 different sets of 200 random samples for a naturally trained NiN model on SVHN
+</p>
+
+
+<p align="center">
+<img title="poison_accuracy" src="pics/enlarge_trojai.png" height="800">
+</p>
+
+<p align="center">
+Caption goes here
 </p>
