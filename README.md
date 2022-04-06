@@ -1,6 +1,6 @@
 # Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security
 
-This is the implementation for IEEE S&P 2022 paper "Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security".
+This is the implementation for IEEE S&P 2022 paper "Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security."
 
 The PyTorch version is coming soon...
 
@@ -17,41 +17,45 @@ The code is implemented and tested on Keras with TensorFlow backend. It runs on 
 
 The main functions are located in `src/main.py` file.
 
+### Model Orthogonalization
+
 To harden a model using MOTH, please use the following command:
 
    ```bash
    python3 src/main.py --phase moth
    ```
 
-The default dataset and model are CIFAR-10 and ResNet20. You can harden different model structures on other datasets by passing the arguments `--dataset [dataset]` and `--network [model structure]`. We have included four datasets (CIFAR-10, SVHN, LISA, and GTSRB) and four model structures (ResNet, VGG19, NiN, and CNN).
+The default dataset and model are CIFAR-10 and ResNet20. You can harden different model structures on other datasets by passing the arguments `--dataset [dataset]` and `--network [model structure]`. We have included four datasets (CIFAR-10, SVHN, LISA, and GTSRB) and four model structures (ResNet, VGG19, NiN, and CNN). (The datasets will be uploaded soon.)
 
-To measure the pair-wise class distance, please use the following command:
+To measure the pair-wise class distance, please run:
 
-    ```bash
-    python3 src/main.py --phase validate --suffix [suffix of checkpoint] --seed [seed id]
-    ```
+   ```bash
+   python3 src/main.py --phase validate --suffix [suffix of checkpoint] --seed [seed id]
+   ```
 
 Models hardened by MOTH will have a suffix of `_moth` in addition to the original checkpoint path. Please provide the checkpoint extension using argument `--suffix`. The distance shall be measured using three different random seeds by passing seed ids `0`, `1`, and `2` to the argument `--seed` separately.
 
 The final pair-wise class distance of the evalauted model can be obtained through the following command:
 
-    ```bash
-    python3 src/main.py --phsae show --suffix [suffix of checkpoint]
-    ```
+   ```bash
+   python3 src/main.py --phsae show --suffix [suffix of checkpoint]
+   ```
 
 It prints out a matrix of class distances of all the pairs. Each row denotes the source label and each column the target label. The average distance and relative enlargement are also presented in the end.
 
+### Model Functionality
+
 To test the accuracy of a model, simply run:
 
-    ```bash
-    python3 src/main.py --phase test --suffix [suffix of checkpoint]
-    ```
+   ```bash
+   python3 src/main.py --phase test --suffix [suffix of checkpoint]
+   ```
 
 The robustness of a given model can be evaluated using PGD with the following command:
 
-    ```bash
-    python3 src/main.py --phase measure --suffix [suffix of checkpoint]
-    ```
+   ```bash
+   python3 src/main.py --phase measure --suffix [suffix of checkpoint]
+   ```
 
 ## Acknowledgement
 
