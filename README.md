@@ -1,66 +1,76 @@
-# MOTH
+# Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security
 
-Supplementary material for paper *Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security*
+This is the implementation for IEEE S&P 2022 paper "Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security".
 
-## Stability of Class Distance
+The PyTorch version is coming soon...
 
-We study the stability of class distance by using different sets/numbers of samples on CIFAR-10 and SVHN. Figure 1 shows the results for CIFAR-10 using 200 random samples. Figures 2 and 3 show results for SVHN using 100 and 200 samples, respectively. The heat maps on the left denote the means of class distances for all pairs and the heat maps on the right denote the standard deviations. Observe that the standard deviations of class distances are small for using 200 random samples (4.50) for the measurement, rendering the class distance measure quite stable. The average distances is 61.31. The observation is the same for SVNH using 100 samples (69.25±5.42) and using 200 samples (73.43±5.15).
+## Prerequisite
 
-<p align="center">
-<img title="stability_cifar_200" src="pics/stability_cifar_200.png" height="230">
-</p>
+The code is implemented and tested on Keras with TensorFlow backend. It runs on Python 3.6.9.
 
-<p align="left">
-Figure 1: Mean and standard deviation of class distances for 100 different sets of 200 random samples for a naturally trained ResNet20 model on CIFAR-10
-</p>
+### Keras Version
 
-<p align="center">
-<img title="stability_svhn_100" src="pics/stability_svhn_100.png" height="220">
-</p>
+* Keras 2.3.0
+* Tensorflow 1.14.0
 
-<p align="left">
-Figure 2: Mean and standard deviation of class distances for 100 different sets of 100 random samples for a naturally trained NiN model on SVHN
-</p>
+## Usage
 
-<p align="center">
-<img title="stability_svhn_100" src="pics/stability_svhn_200.png" height="220">
-</p>
+The main functions are located in `src/main.py` file.
 
-<p align="left">
-Figure 3: Mean and standard deviation of class distances for 100 different sets of 200 random samples for a naturally trained NiN model on SVHN
-</p>
+To harden a model using MOTH, please use the following command:
 
+   ```bash
+   python3 src/main.py --phase moth
+   ```
 
+The default dataset and model are CIFAR-10 and ResNet20. You can harden different model structures on other datasets by passing the arguments `--dataset [dataset]` and `--network [model structure]`. We have included four datasets (CIFAR-10, SVHN, LISA, and GTSRB) and four model structures (ResNet, VGG19, NiN, and CNN).
 
-## Normal Accuracy of TrojAI Models
+To measure the pair-wise class distance, please use the following command:
 
-Figure 4 shows the normal accuracy of false positive models reported by top-performers' scanner in Section VI-A of the paper before and after applying MOTH. The x-axis denotes the model IDs and the y-axis denotes the accuracy. Bars in the light colors denote the accuracy of models before applying MOTH and the dark color after. The accuracy degradation is 0.13% on average.
+    ```bash
+    python3 src/main.py --phase validate --suffix [suffix of checkpoint] --seed [seed id]
+    ```
 
-<p align="center">
-<img title="false_positive" src="pics/false_positive.png" height="220">
-</p>
+Models hardened by MOTH will have a suffix of `_moth` in addition to the original checkpoint path. Please provide the checkpoint extension using argument `--suffix`. The distance shall be measured using three different random seeds by passing seed ids `0`, `1`, and `2` to the argument `--seed` separately.
 
-<p align="center">
-Figure 4: Normal accuracy of false positive models
-</p>
+The final pair-wise class distance of the evalauted model can be obtained through the following command:
 
+    ```bash
+    python3 src/main.py --phsae show --suffix [suffix of checkpoint]
+    ```
 
-Figure 5 shows the normal accuracy of poisoned models before and after applying each backdoor-erasing technique. Bars in the light colors denote the accuracy of poisoned models before erasing/hardening and the dark color after. We can observe that the accuracy degradation is minimal (<0.5% for most cases). The average accuracy degradation is less than 0.2% for all the techniques.
+It prints out a matrix of class distances of all the pairs. Each row denotes the source label and each column the target label. The average distance and relative enlargement are also presented in the end.
 
-<p align="center">
-<img title="poison_accuracy" src="pics/poison_accuracy.png" height="160">
-</p>
+To test the accuracy of a model, simply run:
 
-<p align="center">
-Figure 5: Normal accuracy of poisoned models before/after repair
-</p>
+    ```bash
+    python3 src/main.py --phase test --suffix [suffix of checkpoint]
+    ```
 
+The robustness of a given model can be evaluated using PGD with the following command:
 
+    ```bash
+    python3 src/main.py --phase measure --suffix [suffix of checkpoint]
+    ```
 
-## Evaluation on TrojAI Models
+## Acknowledgement
 
-The results are shown in the following two tables. Overall, Universal can improve the class distance to some extent with an average of 154.70% improvement over the original models, inferior to MOTH with 232.39%. Pairwise has a similar performance (239.98%) on hardening class distance as MOTH. But it suffers from low efficiency, 10.81 times slower than MOTH.
+The code of trigger inversion is inspired by [Neural Cleanse](https://github.com/bolunwang/backdoor).
 
-<p align="center">
-<img title="poison_accuracy" src="pics/enlarge_trojai.png" height="900">
-</p>
+The PGD code is adapted from [cifar10\_challenge](https://github.com/MadryLab/cifar10_challenge).
+
+Thanks for their amazing implementations.
+
+## Reference
+
+Please cite for any purpose of usage.
+
+```
+@inproceedings{tao2022model,
+  title={Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security},
+  author={Tao, Guanhong and Liu, Yingqi and Shen, Guangyu and Xu, Qiuling and An, Shengwei and Zhang, Zhuo and Zhang, Xiangyu},
+  booktitle={2022 IEEE Symposium on Security and Privacy (SP)},
+  year={2022},
+  organization={IEEE}
+}
+```
