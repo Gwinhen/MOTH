@@ -2,16 +2,18 @@
 
 This is the implementation for IEEE S&P 2022 paper "Model Orthogonalization: Class Distance Hardening in Neural Networks for Better Security."
 
-The PyTorch version is coming soon...
-
 ## Prerequisite
 
-The code is implemented and tested on Keras with TensorFlow backend. It runs on Python 3.6.9.
+The code is implemented and tested on Keras (with TensorFlow backend) and PyTorch. It runs on Python 3.6.9.
 
 ### Keras Version
 
 * Keras 2.3.0
 * Tensorflow 1.14.0
+
+### PyTorch Version
+
+* PyTorch 1.7.0
 
 ## Usage
 
